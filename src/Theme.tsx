@@ -8,6 +8,10 @@ let Theme = createTheme({
 		secondary: {
 			main: "#bd4407",
 		},
+		text: {
+			primary: "#000000",
+			disabled: "#333333ba"
+		},
 	},
 	typography: {
 		fontFamily: [
@@ -24,6 +28,7 @@ let Theme = createTheme({
 			textTransform: "capitalize",
 			fontWeight: "bold",
 			color: "#bd4407",
+			border: "2px solid green"
 		},
 	},
 });

@@ -6,16 +6,21 @@ import App from "./App.tsx";
 import Theme from "./Theme.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./configs/constants/Libs.tsx";
+
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<HelmetProvider>
-		<ThemeProvider theme={Theme}>
-			<BrowserRouter>
-				<CssBaseline />
-				<App />
-			</BrowserRouter>
-		</ThemeProvider>
-		</HelmetProvider>
+		<QueryClientProvider client={queryClient}>
+			<HelmetProvider>
+				<ThemeProvider theme={Theme}>
+					<BrowserRouter>
+						<CssBaseline />
+						<App />
+					</BrowserRouter>
+				</ThemeProvider>
+			</HelmetProvider>
+		</QueryClientProvider>
 	</StrictMode>
 );

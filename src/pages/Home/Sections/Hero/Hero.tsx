@@ -3,7 +3,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { Container, styled, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Img from "../../../../assets/images/pikachu_kurama.webp";
-import StyledButton from "../../../../components/StyledButton/StyledButton";
+import StyledButton from "../../../../components/common/StyledButton/StyledButton";
 import { useTranslation } from "react-i18next";
 
 const Hero = () => {

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { PAGES } from "../../routes/RoutesContants";
+import { PAGES } from "../../configs/routes/RoutesContants";
 import StyledNavBar from "./StyledNavBar";
 
 const NavBar = () => {
@@ -51,7 +51,7 @@ const NavBar = () => {
 						aria-label="menu-btn"
 						sx={{ display: { xs: "none", md: "flex" } }}
 					>
-						<LocalLibrary />
+						<LocalLibrary fontSize="large" />
 					</IconButton>
 					<Box
 						sx={{

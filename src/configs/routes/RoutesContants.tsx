@@ -1,12 +1,14 @@
 import React from "react";
-const Home =  React.lazy(() => import("../pages/Home/Home"));
-const Contatos = React.lazy(() => import("../pages/Contacts/Contacts"));
 import CustomRoutes from "./RoutesInterface";
+const Home = React.lazy(() => import("../../pages/Home/Home"));
+const Projects = React.lazy(() => import("../../pages/Projects/Projects"));
+const Contatos = React.lazy(() => import("../../pages/Contacts/Contacts"));
+const Skills = React.lazy(() => import("../../pages/Skils/Skils"));
 
 export const PAGES: CustomRoutes[] = [
 	{ component: <Home />, routeName: "/" },
-	{ component: <Home />, routeName: "habilidades" },
-	{ component: <Home />, routeName: "projetos" },
+	{ component: <Skills />, routeName: "habilidades" },
+	{ component: <Projects />, routeName: "projetos" },
 	{ component: <Contatos />, routeName: "/contatos" },
 ];
 

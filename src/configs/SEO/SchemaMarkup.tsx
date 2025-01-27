@@ -2,8 +2,8 @@ import { Home } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
-import { find } from "../../routes/RoutesContants";
-import CustomRoutes from "../../routes/RoutesInterface";
+import { find } from "../routes/RoutesContants";
+import CustomRoutes from "../routes/RoutesInterface";
 
 
 const SchemaMarkup = () => {

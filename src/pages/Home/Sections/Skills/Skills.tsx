@@ -1,5 +1,5 @@
 import { styled } from "@mui/material";
-import { StyledCard } from "../../../../components/Card/StyledCard";
+import { StyledCard } from "../../../../components/common/StyledCard/StyledCard";
 
 interface Tecnologies {
 	name: string;
