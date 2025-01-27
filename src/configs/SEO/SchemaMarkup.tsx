@@ -51,6 +51,11 @@ const SchemaMarkup = () => {
 					content="Felipe Batista da Silva FelipB26"
 				/>
 				<link rel="icon" type="image/x-icon" href="favicon.ico" />
+				<script
+					defer
+					src="https://cloud.umami.is/script.js"
+					data-website-id="4266ba19-7929-4e04-9757-2a12ef0b9582"
+				></script>
 				<script type="application/ld+json">
 					{JSON.stringify(schemaData)}
 				</script>
