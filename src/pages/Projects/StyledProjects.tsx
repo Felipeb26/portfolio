@@ -1,62 +1,92 @@
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { styled } from "@mui/material";
-import { Link } from "react-router-dom";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { CardActions, CardContent, styled } from "@mui/material";
+import { Card } from "@mui/material/";
 import { IRepository } from "../../shared/types/IRepository";
+import { Link } from "react-router-dom";
 import { FormatarParaBR } from "../../shared/utils/FormatData";
+import { ArrowForward } from "@mui/icons-material";
+import { LocateImage } from "../../shared/utils/Tecnologies";
 
-export const Card: React.FC<{ repository: IRepository }> = ({ repository }) => {
-	const StyledCard = styled("div")(({ theme }) => ({
+// const decodeBase64 = (encodedText) => {
+// 	return atob(encodedText);
+// };
+
+export const StyledCard: React.FC<{ repository: IRepository }> = ({
+	repository,
+}) => {
+	const StyledCard = styled(Card)(({ theme }) => ({
 		display: "flex",
 		flexDirection: "column",
-		color: theme.palette.text.primary,
-		padding: "0.5rem 1rem",
-		border: `2px solid ${theme.palette.secondary.dark}`,
-		borderRadius: "0.8rem",
-		transition: "ease-in-out 250ms all",
+		justifyContent: "center",
+		alignItens: "center",
+		alignContent: "center",
+		background: theme.palette.primary.light,
+		padding: "0 1rem",
 		"&:hover": {
 			boxShadow: `0 0 10px ${theme.palette.secondary.light}`,
-		},
-		h2: {
-			textTransform: "capitalize",
 		},
 		a: {
 			display: "flex",
 			alignIten: "center",
 			color: theme.palette.secondary.light,
-			background: theme.palette.primary.dark,
-			padding: "1rem",
+			padding: "0.5rem",
 			borderRadius: "1rem",
-			border: `1px solid ${theme.palette.secondary.dark}`,
 		},
 		"a:active": {
 			background: theme.palette.secondary.dark,
 			color: theme.palette.primary.contrastText,
 		},
+		"a:hover": {
+			color: theme.palette.secondary.dark,
+			filter: `drop-shadow(0 0 0.5rem ${theme.palette.primary.contrastText})`,
+		},
 	}));
 
+	// const encodedText =
+	// 	"IyBCYXRzU3ByaW5nCgpQcm9qZXRvIHBhcmEgYXV0b21hdGl6YXIgY3JpYWNhbyBkZSBwcm9qZXRvcyBjb20gc3ByaW5nCg==";
+	// const decodedText = decodeBase64(encodedText);
+
 	return (
-		<StyledCard sx={{ color: "black", background: "primary" }}>
+		<StyledCard>
 			<h2 color="text">{repository.name}</h2>
 			<p>{repository.description}</p>
-			<p>{repository.language}</p>
-			{/* <iframe
-				src={`https://felipeb26.github.io/${repository.name}/`}
-			></iframe> */}
-			<div
-				style={{
+
+			{Array.isArray(repository.language) ? (
+				repository.language.map((lang, index) => (
+					<img
+						src={LocateImage(lang)}
+						alt="programming language"
+						key={index}
+					/>
+				))
+			) : (
+				<img
+					src={LocateImage(repository.language)}
+					alt="programming language"
+					width={50}
+				/>
+			)}
+
+			{/* <pre>{decodedText}</pre> */}
+
+			<CardContent
+				sx={{
 					display: "flex",
-					flexDirection: "row",
-					gap: "1rem",
+					gap: "0.5rem",
 					textTransform: "capitalize",
-					alignItems: "center",
+					fontWeight: "bold",
+					padding: "0",
 				}}
 			>
 				<p>criado: {FormatarParaBR(repository.created_at)}</p>
 				<p>atualizado: {FormatarParaBR(repository.updated_at)}</p>
+			</CardContent>
+
+			<CardActions>
 				<Link to={repository.html_url} target="_blank">
-					<ArrowForwardIcon fontSize="large" />
+					<ArrowForward fontSize="large" />
 				</Link>
-			</div>
+			</CardActions>
 		</StyledCard>
 	);
 };
@@ -86,7 +116,7 @@ export const SectionCards: React.FC<{ repositorys?: IRepository[] }> = ({
 				) {
 					return;
 				}
-				return <Card key={index} repository={repository} />;
+				return <StyledCard key={index} repository={repository} />;
 			})}
 		</StyledDiv>
 	);

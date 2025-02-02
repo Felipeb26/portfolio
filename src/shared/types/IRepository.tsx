@@ -1,4 +1,5 @@
 export interface IRepository {
+	sha:string;
 	name: string;
 	description: string;
 	html_url: string;
@@ -8,5 +9,6 @@ export interface IRepository {
 	created_at: string;
 	updated_at: string;
 	download_url: string;
+	git_url:string;
 	path: string;
 }

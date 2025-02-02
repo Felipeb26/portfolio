@@ -10,26 +10,30 @@ import {
 	Select,
 	SelectChangeEvent,
 	Toolbar,
+	Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PAGES } from "../../configs/routes/RoutesContants";
-import StyledNavBar from "./StyledNavBar";
+import { StyledNavBar, MaterialUISwitch } from "./StyledNavBar";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = () => {
 	const { i18n } = useTranslation();
 	const [language, setLanguage] = useState<string>(i18n.language);
 	const [anchorNav, setAnchorNav] = useState<null | HTMLElement>();
 	const [darkTheme, setDarkTheme] = useState(true);
+	const navigation = useNavigate()
 
 	const changeLanguage = (changeEvent: SelectChangeEvent) => {
 		const lng = changeEvent.target.value;
 		i18n.changeLanguage(lng);
-		setLanguage(lng)
+		setLanguage(lng);
 	};
 
 	const changeTheme = () => {
 		setDarkTheme((value) => !value);
+		console.log(darkTheme);
 	};
 
 	const openMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -39,6 +43,10 @@ const NavBar = () => {
 	const closeMenu = () => {
 		setAnchorNav(null);
 	};
+
+	const navigate = () =>{
+		navigation("home")
+	}
 
 	return (
 		<>
@@ -50,6 +58,7 @@ const NavBar = () => {
 						edge="start"
 						aria-label="menu-btn"
 						sx={{ display: { xs: "none", md: "flex" } }}
+						onClick={navigate}
 					>
 						<LocalLibrary fontSize="large" />
 					</IconButton>
@@ -64,9 +73,11 @@ const NavBar = () => {
 					>
 						{PAGES.map((page, index) => (
 							<StyledNavBar to={page.routeName} key={index}>
-								{page.baseName
-									? page.baseName
-									: `teste ${index}`}
+								<Typography variant="inherit" key={index}>
+									{page.baseName
+										? page.baseName
+										: page.routeName}
+								</Typography>
 							</StyledNavBar>
 						))}
 						<Select
@@ -81,13 +92,7 @@ const NavBar = () => {
 								ingles
 							</MenuItem>
 						</Select>
-						<IconButton onClick={changeTheme}>
-							{darkTheme ? (
-								<Brightness5 color="secondary" />
-							) : (
-								<Brightness1 color="secondary" />
-							)}
-						</IconButton>
+						<MaterialUISwitch onClick={changeTheme} />
 					</Box>
 					{/* Para quando for layout mobile e tablet */}
 					<Box
@@ -127,7 +132,7 @@ const NavBar = () => {
 										<StyledNavBar to={page.routeName}>
 											{page.baseName
 												? page.baseName
-												: `teste ${index}`}
+												: page.routeName}
 										</StyledNavBar>
 									</MenuItem>
 								))}
@@ -140,6 +145,7 @@ const NavBar = () => {
 								</IconButton>
 							</MenuList>
 						</Menu>
+						<Typography variant="h2">Batsworks</Typography>
 					</Box>
 				</Toolbar>
 			</AppBar>

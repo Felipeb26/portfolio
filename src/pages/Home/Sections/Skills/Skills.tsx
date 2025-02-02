@@ -1,43 +1,8 @@
 import { styled } from "@mui/material";
 import { StyledCard } from "../../../../components/common/StyledCard/StyledCard";
-
-interface Tecnologies {
-	name: string;
-	image?: string;
-}
+import { Tecnologies } from "../../../../shared/utils/Tecnologies";
 
 const Skills = () => {
-	const skills: Tecnologies[] = [
-		{
-			name: "Java",
-			image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg",
-		},
-		{
-			name: "kotlin",
-			image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg",
-		},
-		{
-			name: "gradle",
-			image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gradle/gradle-original.svg",
-		},
-		{
-			name: "maven",
-			image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/maven/maven-original.svg",
-		},
-        {
-            name: "spring",
-            image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
-        },
-        {
-            name: "sqlserver",
-            image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-original.svg"
-        },
-        {
-            name: "angularjs",
-            image: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg"
-        }
-	];
-
 	const StyledCards = styled("div")(() => ({
 		width: "100%",
 		display: "flex",
@@ -54,9 +19,13 @@ const Skills = () => {
 
 	return (
 		<StyledCards sx={{ marginTop: { xs: "8rem", md: "1vh" } }}>
-			{skills.map((skill, index) => (
+			{Tecnologies.map((skill, index) => (
 				<StyledCard key={index}>
-                    <StyleImg sx={{width: {xs: "100%"}}} src={skill.image} alt={`Imagem de ${skill.name}`} />
+					<StyleImg
+						sx={{ width: { xs: "100%" } }}
+						src={skill.image}
+						alt={`Imagem de ${skill.name}`}
+					/>
 					{skill.name}
 				</StyledCard>
 			))}

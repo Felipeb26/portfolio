@@ -1,58 +1,90 @@
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Card, CardMedia } from "@mui/material";
-import Carousel from "react-material-ui-carousel";
+import { Card, Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import axios, { AxiosResponse } from "axios";
+import React, { useEffect, useState } from "react";
 import { GITHUB } from "../../configs/constants/Apis";
 import { GET } from "../../shared/hooks/RequestHook";
+import { ICertificate } from "../../shared/types/ICertificate";
 import { IRepository } from "../../shared/types/IRepository";
+import { ITree } from "../../shared/types/ITree";
 
-const Skills = () => {
-	const { data, isLoading, isError } = GET<IRepository[]>(
-		GITHUB.certificados
-	);
+const fetchTree = async (url: string, key: string = "tree") => {
+	const query = useQuery<AxiosResponse<any>>({
+		queryFn: () => axios.get<ICertificate>(url),
+		queryKey: [key],
+	});
+	return query.data?.data;
+};
+
+const SkillsPage = () => {
+	const { data } = GET<IRepository[]>(GITHUB.certificados, "certificados");
+	const [certificados, setCertificados] = useState<ICertificate[]>();
+
+	let content = data?.data;
+	content = content?.filter((item) => !item.name.startsWith("README"));
+
+	useEffect(() => {
+		const LoadAllRequests = async () => {
+			if (content) {
+				const detailsList = await Promise.all(
+					content.map((repo) => fetchTree(repo.git_url))
+				);
+
+				setCertificados(detailsList);
+			}
+		};
+		LoadAllRequests();
+	}, []);
+
+	console.log(certificados);
 
 	return (
-		<div style={{ background: "purple", padding: "0 20vw" }}>
-			{isLoading && <p>carregando</p>}
-			{isError && <p>houve algunm erro</p>}
-
-			<Carousel
-				stopAutoPlayOnHover={true}
-                next={() => console.log("p")}
-				PrevIcon={<ArrowBack color="primary" />}
-				NextIcon={<ArrowForward />}
-			>
-				{data?.data.map((cert, index) => {
-					const googleDocsUrl = `https://docs.google.com/gview?url=${cert.download_url}&embedded=true`;
-
+		<div>
+			<Typography variant="h2">Certificados</Typography>
+			{content &&
+				content.map((item, index) => {
 					return (
-						<Card
-							key={index}
-							sx={{
-								color: "black",
-								height: "350px",
-								aspectRatio: "16/9",
-								display: "flex",
-								flexDirection: "column",
-								padding: "1rem 2rem 0.1rem 2rem",
-							}}
-						>
-							<p>{cert.name}</p>
-							<CardMedia
-								sx={{ height: "220px", aspectRatio: "16/9" }}
-							>
-								<iframe
-									src={googleDocsUrl}
-									width="100%"
-									height="100%"
-									title="PDF Preview"
-								></iframe>
-							</CardMedia>
+						<Card key={index}>
+							<Typography variant="h3">{item.name}</Typography>
+							{certificados &&
+								certificados.map((cert, index) => {
+									if (item.sha === cert.sha) {
+										return (
+											<>
+												<Typography>
+													{item.sha}
+												</Typography>
+												<Certificate
+													trees={cert.tree}
+												/>
+											</>
+										);
+									}
+								})}
 						</Card>
 					);
 				})}
-			</Carousel>
 		</div>
 	);
 };
 
-export default Skills;
+interface ILocalCertificates {
+	trees: ITree[];
+}
+
+const Certificate: React.FC<ILocalCertificates> = ({ trees }) => {
+	return (
+		<>
+			{trees.map((three, index) => {
+				return (
+					<div>
+						<Typography>{three.path}</Typography>
+						<p>{(three.size / 1024 / 1024).toFixed(4)}mb</p>
+						<img src={three.url} alt="" key={index} />
+					</div>
+				);
+			})}
+		</>
+	);
+};
+export default SkillsPage;

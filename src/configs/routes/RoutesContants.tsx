@@ -6,10 +6,10 @@ const Contatos = React.lazy(() => import("../../pages/Contacts/Contacts"));
 const Skills = React.lazy(() => import("../../pages/Skils/Skils"));
 
 export const PAGES: CustomRoutes[] = [
-	{ component: <Home />, routeName: "/" },
+	{ component: <Home />, routeName: "home" },
 	{ component: <Skills />, routeName: "habilidades" },
 	{ component: <Projects />, routeName: "projetos" },
-	{ component: <Contatos />, routeName: "/contatos" },
+	{ component: <Contatos />, routeName: "contatos" },
 ];
 
 export const find = (currentPath: string): CustomRoutes => {

@@ -19,7 +19,7 @@ const SchemaMarkup = () => {
 		document.title = metaData.routeName;
 		setMeta({
 			...metaData,
-			baseName: `Portfolio | ${metaData.baseName}`,
+			baseName: `Portf | ${metaData.baseName}`,
 			component: metaData.component,
 			routeName: metaData.routeName
 		});
@@ -41,7 +41,7 @@ const SchemaMarkup = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Portfólio de Felipe Batista | {meta.routeName}</title>
+				<title>Portfólio | {meta.routeName.toUpperCase()}</title>
 				<meta
 					name="description"
 					content="Portfólio de Felipe Batista Desenvolvedor fullstack especializado Java. Explore projetos e entre em contato!"
