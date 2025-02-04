@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { GITHUB } from "../../configs/constants/Apis";
 import { useQuery } from "@tanstack/react-query";
 
-export function GET<T = any>(
+export function GET<T = undefined>(
 	url: string = GITHUB.repos,
 	key: string = "chave"
 ) {

@@ -1,5 +1,5 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import { Card, CardMedia, styled } from "@mui/material";
+import { Card, styled } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { GITHUB } from "../../configs/constants/Apis";
 import { GET } from "../../shared/hooks/RequestHook";
