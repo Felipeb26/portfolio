@@ -95,7 +95,7 @@ export const SectionCards: React.FC<{ repositorys?: IRepository[] }> = ({
 	repositorys,
 }) => {
 	if (!repositorys || repositorys.length === 0) {
-		return <div>Nenhum repositório encontrado.</div>;
+		return <></>;
 	}
 
 	const StyledDiv = styled("div")(({ theme }) => ({

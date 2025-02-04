@@ -1,8 +1,8 @@
+import { styled } from "@mui/material";
 import NavBar from "./components/NavBar/NavBar";
 import SchemaMarkup from "./configs/SEO/SchemaMarkup";
-import Router from "./configs/routes/Router";
 import "./configs/locales/Languages";
-import { styled } from "@mui/material";
+import Router from "./configs/routes/Router";
 
 function App() {
 	const StyledCard = styled("div")(({ theme }) => ({

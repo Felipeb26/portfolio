@@ -1,10 +1,11 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PAGES } from "./RoutesContants";
 import { Suspense } from "react";
+import Loading from "../../components/Load/Loading";
 
 const Router = () => {
 	return (
-		<Suspense fallback={<h1>Loading...</h1>}>
+		<Suspense fallback={<Loading/>}>
 			<Routes>
 				{PAGES.map((route, index) => (
 					<Route
@@ -13,7 +14,7 @@ const Router = () => {
 						element={route.component}
 					/>
 				))}
-				<Route path="*" element={<Navigate to="/" replace />} />
+				<Route path="*" element={<Navigate to="home" replace />} />
 			</Routes>
 		</Suspense>
 	);

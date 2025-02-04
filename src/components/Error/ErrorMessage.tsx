@@ -1,16 +1,53 @@
 import Lottie from "lottie-react";
 import errorAnimation from "../../assets/lottie/ErrorAnimation.json";
-import { Typography } from "@mui/material";
+import { styled, Typography } from "@mui/material";
 
-const ErrorMessage: React.FC<any | undefined> = ({ errorMessage }) => {
-	const defaultMessage =
-		"Algum erro ocorreu ao trazer os dados, caso persista entre em contato com o administrador";
+interface IErrorMessage {
+	errorMessage: string | undefined;
+}
+
+const ErrorMessage: React.FC<IErrorMessage> = ({ errorMessage }) => {
+
+	const StyledDiv = styled("div")(({ theme }) => ({
+		background: theme.palette.primary.main,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		overflow: "hidden",
+		h3: {
+			maxWidth: "50%",
+		},
+	}));
+
 	return (
-		<>
-			<Lottie animationData={errorAnimation} />
-			<Typography variant="h3">{defaultMessage}</Typography>
-			{errorMessage && <Typography variant="subtitle1">{errorMessage}</Typography>}
-		</>
+		<StyledDiv
+			sx={{
+				height: {
+					xs: "calc(100vh - 5rem)",
+					sm: "calc(100vh - 10rem)",
+					lg: "calc(100vh - 6rem)",
+				},
+			}}
+		>
+			<Lottie
+				animationData={errorAnimation}
+				style={{ width: "50%", maxWidth: 400, minWidth: 200 }}
+			/>
+			<Typography
+				variant="h3"
+				color="primary.contrastText"
+				textAlign="center"
+			>
+				Algum erro ocorreu ao trazer os dados, <br />
+				Caso persista, <br />
+				entre em contato com o administrador.
+			</Typography>
+			{errorMessage && (
+				<Typography variant="subtitle1" color="primary.contrastText">
+					{errorMessage}
+				</Typography>
+			)}
+		</StyledDiv>
 	);
 };
 

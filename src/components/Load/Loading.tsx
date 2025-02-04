@@ -1,6 +1,8 @@
 import { keyframes, styled } from "@mui/material";
+import { useIsFetching } from "@tanstack/react-query";
 
 const Loading = () => {
+	const isFetching: number = useIsFetching();
 	const color = "#00ff0a";
 
 	const animation = keyframes`
@@ -30,8 +32,10 @@ const Loading = () => {
 		minHeight: "100vh",
 		background: "#181818d5",
 		animation: animation,
-        height: "100%",
-        zIndex: "5",
+		height: "100%",
+		width: "100%",
+		zIndex: "5",
+		position: "absolute",
 		".loader": {
 			position: "relative",
 			width: "120px",
@@ -62,22 +66,27 @@ const Loading = () => {
 				"0 0 80px #00ff0a," +
 				"0 0 100px #00ff0a",
 			animation: `${animate} 2s linear infinite`,
-            animationDelay: "calc(0.1s * var(--i))"
+			animationDelay: "calc(0.1s * var(--i))",
 		},
 	}));
 
 	const spans = Array.from({ length: 20 }, (_, index) => index + 1);
+
 	return (
-		<StyledSection>
-			<div className="loader">
-				{spans.map((span, index) => (
-					<span
-						style={{ "--i": span } as React.CSSProperties}
-						key={index}
-					></span>
-				))}
-			</div>
-		</StyledSection>
+		<>
+			{isFetching > 0 && (
+				<StyledSection>
+					<div className="loader">
+						{spans.map((span, index) => (
+							<span
+								style={{ "--i": span } as React.CSSProperties}
+								key={index}
+							></span>
+						))}
+					</div>
+				</StyledSection>
+			)}
+		</>
 	);
 };
 
