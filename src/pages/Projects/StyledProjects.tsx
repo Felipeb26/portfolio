@@ -1,15 +1,11 @@
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { CardActions, CardContent, styled } from "@mui/material";
+import { CardActions, CardContent, styled, Tooltip } from "@mui/material";
 import { Card } from "@mui/material/";
 import { IRepository } from "../../shared/types/IRepository";
 import { Link } from "react-router-dom";
 import { FormatarParaBR } from "../../shared/utils/FormatData";
 import { ArrowForward } from "@mui/icons-material";
 import { LocateImage } from "../../shared/utils/Tecnologies";
-
-// const decodeBase64 = (encodedText) => {
-// 	return atob(encodedText);
-// };
 
 export const StyledCard: React.FC<{ repository: IRepository }> = ({
 	repository,
@@ -42,10 +38,6 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 		},
 	}));
 
-	// const encodedText =
-	// 	"IyBCYXRzU3ByaW5nCgpQcm9qZXRvIHBhcmEgYXV0b21hdGl6YXIgY3JpYWNhbyBkZSBwcm9qZXRvcyBjb20gc3ByaW5nCg==";
-	// const decodedText = decodeBase64(encodedText);
-
 	return (
 		<StyledCard>
 			<h2 color="text">{repository.name}</h2>
@@ -53,21 +45,23 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 
 			{Array.isArray(repository.language) ? (
 				repository.language.map((lang, index) => (
-					<img
-						src={LocateImage(lang)}
-						alt="programming language"
-						key={index}
-					/>
+					<Tooltip title={lang} placement="top-end">
+						<img
+							src={LocateImage(lang)}
+							alt="programming language"
+							key={index}
+						/>
+					</Tooltip>
 				))
 			) : (
-				<img
-					src={LocateImage(repository.language)}
-					alt="programming language"
-					width={50}
-				/>
+				<Tooltip title={repository.language} placement="top-end">
+					<img
+						src={LocateImage(repository.language)}
+						alt="programming language"
+						width={50}
+					/>
+				</Tooltip>
 			)}
-
-			{/* <pre>{decodedText}</pre> */}
 
 			<CardContent
 				sx={{
