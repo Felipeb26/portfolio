@@ -1,15 +1,25 @@
 // import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { CardActions, CardContent, styled, Tooltip } from "@mui/material";
-import { Card } from "@mui/material/";
-import { IRepository } from "../../shared/types/IRepository";
-import { Link } from "react-router-dom";
-import { FormatarParaBR } from "../../shared/utils/FormatData";
 import { ArrowForward } from "@mui/icons-material";
+import {
+	Button,
+	CardActions,
+	CardContent,
+	Fade,
+	styled,
+	Tooltip,
+} from "@mui/material";
+import { Card } from "@mui/material/";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { IRepository } from "../../shared/types/IRepository";
+import { FormatarParaBR } from "../../shared/utils/FormatData";
 import { LocateImage } from "../../shared/utils/Tecnologies";
 
 export const StyledCard: React.FC<{ repository: IRepository }> = ({
 	repository,
 }) => {
+	const [open, setOpen] = useState(false);
+
 	const StyledCard = styled(Card)(({ theme }) => ({
 		display: "flex",
 		flexDirection: "column",
@@ -18,6 +28,7 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 		alignContent: "center",
 		background: theme.palette.primary.light,
 		padding: "0 1rem",
+		transition: "all 1s ease-in-out	",
 		"&:hover": {
 			boxShadow: `0 0 10px ${theme.palette.secondary.light}`,
 		},
@@ -38,6 +49,13 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 		},
 	}));
 
+		const StyledButton = styled(Button)(({ theme }) => ({
+			color: theme.palette.secondary.light,
+			border: `2px solid ${theme.palette.secondary.main}`,
+			textTransform: "uppercase",
+			boxShadow: `0 0 5px ${theme.palette.secondary.light}`,
+		}));
+
 	return (
 		<StyledCard>
 			<h2 color="text">{repository.name}</h2>
@@ -45,7 +63,19 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 
 			{Array.isArray(repository.language) ? (
 				repository.language.map((lang, index) => (
-					<Tooltip title={lang} placement="top-end">
+					<Tooltip
+						title={repository.language}
+						placement="top-end"
+						slots={{
+							transition: Fade,
+						}}
+						slotProps={{
+							transition: { timeout: 600 },
+						}}
+						open={open}
+						onClose={() => setOpen((v) => !v)}
+						onOpen={() => setOpen((v) => !v)}
+					>
 						<img
 							src={LocateImage(lang)}
 							alt="programming language"
@@ -54,7 +84,19 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 					</Tooltip>
 				))
 			) : (
-				<Tooltip title={repository.language} placement="top-end">
+				<Tooltip
+					title={repository.language}
+					placement="top-end"
+					slots={{
+						transition: Fade,
+					}}
+					slotProps={{
+						transition: { timeout: 600 },
+					}}
+					open={open}
+					onClose={() => setOpen((v) => !v)}
+					onOpen={() => setOpen((v) => !v)}
+				>
 					<img
 						src={LocateImage(repository.language)}
 						alt="programming language"
@@ -77,6 +119,9 @@ export const StyledCard: React.FC<{ repository: IRepository }> = ({
 			</CardContent>
 
 			<CardActions>
+				<StyledButton>
+					Redme
+				</StyledButton>
 				<Link to={repository.html_url} target="_blank">
 					<ArrowForward fontSize="large" />
 				</Link>
