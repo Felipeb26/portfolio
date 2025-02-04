@@ -1,6 +1,5 @@
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { Card, styled } from "@mui/material";
-import { useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import ErrorMessage from "../../components/Error/ErrorMessage";
 import { GITHUB } from "../../configs/constants/Apis";
@@ -8,24 +7,10 @@ import { GET } from "../../shared/hooks/RequestHook";
 import { IRepository } from "../../shared/types/IRepository";
 
 const Skills = () => {
-	const { data, isLoading, isError } = GET<IRepository[]>(
+	const { data, isError } = GET<IRepository[]>(
 		GITHUB.certificados + "ALURA",
 		"certificados"
 	);
-
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const totalSlides = data ? data.data.length : 0;
-	const angle = 360 / totalSlides;
-
-	const nextSlide = () => {
-		setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-	};
-
-	const prevSlide = () => {
-		setCurrentIndex(
-			(prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides
-		);
-	};
 
 	const StyledDiv = styled("div")(({ theme }) => ({
 		background: theme.palette.primary.main,
